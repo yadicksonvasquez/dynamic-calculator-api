@@ -16,7 +16,7 @@ En el código backend se utilizaron los principios SOLID, patrón repository, DT
 
 ## Como hacer la Prueba
 1. Clone el proyecto git clone git@github.com:yadicksonvasquez/dynamic-calculator-api.git
-2. Configure las credenciales para la base de datos en el archivo /src/main/resources/application.yml.
+2. Configure las credenciales para la base de datos en el archivo /src/main/resources/application.yml y en el conpose.yml si va hacer la prueba con Docker.
 3. Compile el proyecto: mvn clean, mvn package o mvn install
 4. Ejecuté el comando: docker compose up
 5. Puede hacer pruebas con Swagger o hacer pruebas con Postman del API con los siguientes endpoints:
