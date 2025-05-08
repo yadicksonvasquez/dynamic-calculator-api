@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+    ports:
+      - 5432:5432
+    networks:
+      - dynamic-calculator-network
+  calculator-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/dynamic_calculator_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+    networks:
+      - dynamic-calculator-network
+volumes:
+    postgresql-data:
+networks:
+    dynamic-calculator-network:
+      name: dc-network

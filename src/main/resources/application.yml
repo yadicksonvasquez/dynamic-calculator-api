@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: dynamic-calculator-api
+  jpa:
+    properties:
+      hibernate:
+       dialect: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+# Swagger Open API info
+swagger:
+   applicationDescription: Dynamic Calculator Test API
+   applicationVersion: v1.0.0
+   applicationTitle: API Rest Dynamic Calculator
+   contactName: Yadickson Vasquez
+   contactEmail: yadicksonvasquez@gmail.com
+
+#external API
+endpoints:
+   getPercentage: http://localhost:9090/api/v1/external-service
+   getPercentageFail: http://localhost:9090/api/v1/external-service/fail
