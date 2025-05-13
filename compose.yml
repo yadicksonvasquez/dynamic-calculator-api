@@ -14,9 +14,7 @@ services:
     networks:
       - dynamic-calculator-network
   calculator-api:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: yadicksonvasquezma/dynamic-calculator-api-calculator-api:latest
     ports:
       - 8080:8080
     depends_on:
