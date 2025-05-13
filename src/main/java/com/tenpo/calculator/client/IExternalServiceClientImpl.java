@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class IExternalServiceClientImpl implements IExternalServiceClient {
 
-	protected final RestTemplate restTemplate;
+	private final RestTemplate restTemplate;
 
 	@Value("${endpoints.getPercentage}")
 	private String urlGetPercentage;
