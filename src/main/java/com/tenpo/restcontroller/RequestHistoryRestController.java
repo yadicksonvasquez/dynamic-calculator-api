@@ -6,7 +6,6 @@ package com.tenpo.restcontroller;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,9 +48,10 @@ public class RequestHistoryRestController {
 			@ApiResponse(responseCode = "503", description = "Business login error", content = {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessageDTO.class)) }) })
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<CompletableFuture<List<RequestHistoryDTO>>> findAll() throws Exception {
+	public CompletableFuture<ResponseEntity<List<RequestHistoryDTO>>> findAll() throws Exception {
 		log.info("[findAll] Find all");
-		return new ResponseEntity<>(this.service.findAll(), HttpStatus.ACCEPTED);
+		return service.findAll().<ResponseEntity<List<RequestHistoryDTO>>>thenApply(ResponseEntity::ok);
+
 	}
 
 	@Operation(summary = "Add history of calls to the calculator API", description = "Add history of calls to the calculator API")
@@ -63,11 +63,10 @@ public class RequestHistoryRestController {
 			@ApiResponse(responseCode = "503", description = "Business login error", content = {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessageDTO.class)) }) })
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<CompletableFuture<Boolean>> addHistory(@Valid @RequestBody RequestHistoryDTO history)
-			throws Exception {
+	public CompletableFuture<Boolean> addHistory(@Valid @RequestBody RequestHistoryDTO history) throws Exception {
 		log.info("[addHistory] Add history of calls to the calculator API");
 
-		return new ResponseEntity<>(service.add(history), HttpStatus.OK);
+		return service.add(history);
 
 	}
 

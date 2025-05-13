@@ -7,6 +7,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import com.tenpo.dto.RequestHistoryDTO;
 import com.tenpo.exception.TenpoBusinessErrorException;
@@ -31,13 +32,14 @@ public class RequestHistoryServiceImpl implements IRequestHistoryService {
 		this.repository = repository;
 	}
 
+	@Async
 	@Override
 	public CompletableFuture<Boolean> add(RequestHistoryDTO requestHistory) throws Exception {
 		try {
-			log.info("[add] Register API request");
+			log.info("[add] Register API request: {}", requestHistory);
 			RequestHistory entity = RequestHistory.builder().endpoint(requestHistory.getEndpoint())
 					.parameters(requestHistory.getParameters()).response(requestHistory.getResponse())
-					.created(Instant.now()).build();
+					.created(requestHistory.getCreated() != null ? requestHistory.getCreated() : Instant.now()).build();
 
 			repository.save(entity);
 
@@ -49,6 +51,7 @@ public class RequestHistoryServiceImpl implements IRequestHistoryService {
 		}
 	}
 
+	@Async
 	@Override
 	public CompletableFuture<List<RequestHistoryDTO>> findAll() throws Exception {
 		try {

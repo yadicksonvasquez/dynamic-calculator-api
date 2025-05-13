@@ -29,8 +29,7 @@ public class DynamicCalculatorServiceImpl implements IDynamicCalculatorService {
 	/**
 	 * 
 	 */
-	public DynamicCalculatorServiceImpl(IExternalServiceClient externalServiceClient,
-			IRequestHistoryService requestHistoryService) {
+	public DynamicCalculatorServiceImpl(IExternalServiceClient externalServiceClient) {
 		this.externalServiceClient = externalServiceClient;
 	}
 
